@@ -20,11 +20,11 @@ OmegaConf.register_new_resolver("prod", lambda x: np.prod(x), replace=True)
 
 # path2name and path2data required for creating directory in run_mode=sample
 OmegaConf.register_new_resolver(
-    "path2name", lambda x: x.split('/')[-4]+"_"+x.split('/')[-1].replace(".pth",""), 
+    "path2name", lambda x: (lambda p: (p[-4] if len(p) >= 4 else p[0]) + "_" + p[-1].replace(".pth",""))(x.split('/')),
     replace=True
 )
 OmegaConf.register_new_resolver(
-    "path2data", lambda x: x.split('/')[-6], 
+    "path2data", lambda x: (lambda p: p[-6] if len(p) >= 6 else p[0])(x.split('/')),
     replace=True
 )
 

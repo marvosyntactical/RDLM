@@ -198,6 +198,13 @@ def _run(rank, world_size, cfg):
             file.write(sentence + "\n")
             file.write("="*100+"\n")
 
+    if rank == 0:
+        mprint(f"Generated {len(sentences)} samples:")
+        for i, sentence in enumerate(sentences):
+            mprint(f"[Sample {i+1}] {sentence}")
+            print(f"[Sample {i+1}] {sentence}")
+            print("="*100)
+
     with open(os.path.join(this_sample_dir, f"samples_{rank}.pkl"), 'wb') as file:
         pickle.dump(samples, file, protocol=pickle.HIGHEST_PROTOCOL)
 
